@@ -1,20 +1,23 @@
 import './JournalItem.css';
 
 
-const JournalItem = () => {
+const JournalItem = ({title,text,date}) => {
+	
 
-	const formatDate=new Intl.DateTimeFormat('ru-RU').format(new Date());
+	const formatDate=new Intl.DateTimeFormat('ru-RU').format(date);
 	return (
 		<>
-			<h2 className="journal-item__heading">Have to finish at least two courses.</h2>
+			<h2 className="journal-item__heading">{title}</h2>
 
 			<div className="journal-item__content">
 				<p className="journal-item__date">{formatDate}</p>
-				<p className="journal-item__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!</p>
+				<p className="journal-item__text">{text}</p>
 			</div>
+
 
 		</>
 	);
 };
 
 export default JournalItem;
+
