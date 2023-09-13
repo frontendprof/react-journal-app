@@ -1,7 +1,5 @@
-
 import { useState } from 'react';
-import './App.css';
-// import Button from './components/Button/Button';
+
 import CardButton from './components/CardButton/CardButton';
 import Header from './components/Header/Header';
 import JournalAddBtn from './components/JournalAddBtn/JournalAddBtn';
@@ -10,27 +8,47 @@ import JournalList from './components/JournalList/JournalList';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import RightPanel from './layouts/RightPanel/RightPanel';
 
+import './App.css';
+import JournalForm from './components/JournalForm/JournalForm';
+
+
 function App() {
 
-	const [inputData,setInputData]=useState('');
+	
 
-	const inputChange=e=>{
-		setInputData(e.target.value);
-	};
 
-	const data=[
-		{title:'Have to finish at least two courses',
-			text:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!',
-			date:new Date()},
 
-		{title:'Continue PHP project',
+	const INITIAL_DATA=[
+
+		{	id:1,
+			title:'Continue PHP project',
 			text:'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
 			date:new Date()},
 
-		{title:'Find mistake in MERN crud project and continue',
+		{	id:2,
+			title:'Find mistake in MERN crud project and continue',
 			text:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!',
 			date:new Date()}
 	];
+
+	const [items, setItems]=useState(INITIAL_DATA);
+
+	const addItem=item=>{
+		setItems(oldItems=>[...oldItems,{
+			title:item.title,
+			text:item.text,
+			date:new Date(item.date),
+			id:Math.max(...oldItems.map(i=>i.id))+1
+		}]);
+	};
+
+	const sortItem=(a,b)=>{
+		if(a.date<b.date){
+			return 1;
+		}else{
+			return -1;
+		}
+	};
 
 	return (
 		<div className='app'>
@@ -40,34 +58,25 @@ function App() {
 				<JournalAddBtn/>
 
 				<JournalList>
-					<CardButton>
-						<JournalItem 
-							title={data[0].title} 
-							text={data[0].text}
-							date={data[0].date}
-						/>
-					</CardButton>
 
-					<CardButton>
-						<JournalItem 
-							title={data[1].title} 
-							text={data[1].text}
-							date={data[1].date}
-						/>
-					</CardButton>
+					{items.sort(sortItem).map(el=>(
+						<CardButton key={el.id}>
+							<JournalItem 
+								
+								title={el.title} 
+								text={el.text}
+								date={el.date}
+							/>
+						</CardButton>
+					))}
+					
 
-					<CardButton>
-						<JournalItem 
-							title={data[2].title} 
-							text={data[2].text}
-							date={data[2].date}
-						/>
-					</CardButton>
+					
 				</JournalList>
 			</LeftPanel>
 
 			<RightPanel>
-				<input type="text" value={inputData} onChange={inputChange} />
+				<JournalForm onSubmit={addItem} />
 			</RightPanel>
 			
 			

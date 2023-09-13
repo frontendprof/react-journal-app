@@ -1,9 +1,9 @@
 import './Button.css';
 
 
-const Button = () => {
+const Button = ({text}) => {
 	return (
-		<div className='button accent'>Click here</div>
+		<button className='button accent'>{text}</button>
 	);
 };
 
