@@ -2,17 +2,19 @@ import './JournalItem.css';
 
 
 const JournalItem = () => {
-  return (
-    <div className="journal-item">
-        <h2 className="journal-item__heading">Some notes here</h2>
 
-        <div className="journal-item__content">
-            <p className="journal-item__date">23/11/2023</p>
-            <p className="journal-item__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!</p>
-        </div>
+	const formatDate=new Intl.DateTimeFormat('ru-RU').format(new Date());
+	return (
+		<>
+			<h2 className="journal-item__heading">Have to finish at least two courses.</h2>
 
-    </div>
-  );
+			<div className="journal-item__content">
+				<p className="journal-item__date">{formatDate}</p>
+				<p className="journal-item__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!</p>
+			</div>
+
+		</>
+	);
 };
 
 export default JournalItem;
