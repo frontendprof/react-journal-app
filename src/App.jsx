@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-import CardButton from './components/CardButton/CardButton';
+
 import Header from './components/Header/Header';
 import JournalAddBtn from './components/JournalAddBtn/JournalAddBtn';
-import JournalItem from './components/JournalItem/JournalItem';
 import JournalList from './components/JournalList/JournalList';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import RightPanel from './layouts/RightPanel/RightPanel';
@@ -20,15 +19,15 @@ function App() {
 
 	const INITIAL_DATA=[
 
-		{	id:1,
-			title:'Continue PHP project',
-			text:'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-			date:new Date()},
+		// {	id:1,
+		// 	title:'Continue PHP project',
+		// 	text:'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+		// 	date:new Date()},
 
-		{	id:2,
-			title:'Find mistake in MERN crud project and continue',
-			text:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!',
-			date:new Date()}
+		// {	id:2,
+		// 	title:'Find mistake in MERN crud project and continue',
+		// 	text:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illo!',
+		// 	date:new Date()}
 	];
 
 	const [items, setItems]=useState(INITIAL_DATA);
@@ -38,17 +37,11 @@ function App() {
 			title:item.title,
 			text:item.text,
 			date:new Date(item.date),
-			id:Math.max(...oldItems.map(i=>i.id))+1
+			id: oldItems.length>0? (Math.max(...oldItems.map(i=>i.id))+1):1
 		}]);
 	};
 
-	const sortItem=(a,b)=>{
-		if(a.date<b.date){
-			return 1;
-		}else{
-			return -1;
-		}
-	};
+
 
 	return (
 		<div className='app'>
@@ -57,22 +50,7 @@ function App() {
 				<Header/>
 				<JournalAddBtn/>
 
-				<JournalList>
-
-					{items.sort(sortItem).map(el=>(
-						<CardButton key={el.id}>
-							<JournalItem 
-								
-								title={el.title} 
-								text={el.text}
-								date={el.date}
-							/>
-						</CardButton>
-					))}
-					
-
-					
-				</JournalList>
+				<JournalList items={items}/>
 			</LeftPanel>
 
 			<RightPanel>
