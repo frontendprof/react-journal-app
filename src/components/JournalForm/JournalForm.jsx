@@ -1,7 +1,9 @@
 import {useState} from 'react';
 
-import './JournalForm.css';
+import s from './JournalForm.module.css';
 import Button from '../Button/Button';
+
+import cn from 'classnames';
 
 const JournalForm = ({onSubmit}) => {
 
@@ -52,11 +54,33 @@ const JournalForm = ({onSubmit}) => {
 	};
     
 	return (
-		<form className='journal-form' onSubmit={addJournalItem}>
-			<input type="text" name='title' style={{border:formValid.title?null:'3px solid red'}}/>
-			<input type="date" name="date" style={{border:formValid.date?null:'3px solid red'}}/>
-			<input type="text" name="tag"  />
-			<textarea name="text" id="text" cols="30" rows="10" style={{border:formValid.text?null:'3px solid red'}}></textarea>
+		<form className={s['journal-form']} onSubmit={addJournalItem}>
+			<div >
+				<input type="text" name='title' className={cn(s['input-title'], {
+					[s['invalid']]:!formValid.title
+				})}/>
+			</div>
+			<div className={s['form-row']}>
+				<label htmlFor="date" className={s['form-label']}>
+					<img src="/calendar.svg" alt="Calendar icon" />
+					<span>Date: </span>
+				</label>
+				<input type="date" id='name' name="date" className={cn(s['input'], {
+					[s['invalid']]:!formValid.date
+				})}/>
+			</div>
+			
+
+			<div className={s['form-row']}>
+				<label htmlFor="tag" className={s['form-label']}>
+					<img src="/folder.svg" alt="Folder icon" />
+					<span>Tag: </span>
+				</label>
+				<input type="text" id='tag' name="tag" className={cn(s['input'])}/>
+			</div>
+			<textarea name="text" id="text" cols="30" rows="10" className={cn(s['input'], {
+				[s['invalid']]:!formValid.text
+			})}></textarea>
 			<Button text="Save me" />
 		</form>
 	);

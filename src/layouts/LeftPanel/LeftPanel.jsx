@@ -1,8 +1,8 @@
-import './LeftPanel.css';
+import s from './LeftPanel.module.css';
 
 const LeftPanel = ({children}) => {
 	return (
-		<div className='left-panel'>{children}</div>
+		<div className={s['left-panel']}>{children}</div>
 	);
 };
 
